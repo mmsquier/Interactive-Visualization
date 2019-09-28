@@ -8,7 +8,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -62,7 +62,8 @@ def sample_metadata(sample):
         Samples_Metadata.WFREQ,
     ]
 
-    results = db.session.query(*sel).filter(Samples_Metadata.sample == sample).all()
+    results = db.session.query(
+        *sel).filter(Samples_Metadata.sample == sample).all()
 
     # Create a dictionary entry for each row of metadata information
     sample_metadata = {}
